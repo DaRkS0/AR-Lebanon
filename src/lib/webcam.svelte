@@ -60,12 +60,12 @@
   onMount(async () => {
     BGImage = new Image();
     BGImage.crossOrigin = "anonymous";
-    // BGImage.src = `img/players/${PlayerID}.png`;
+    BGImage.src = "1.png";
 
     stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
-        //facingMode:"",
+        facingMode: { exact: "environment" },
 
         // focusDistance: { exact: 50.0 },
         // focusMode: { exact: ["manual"] },
@@ -233,14 +233,7 @@
   function DrawBottom(context) {
     try {
       //const scale = 0.7;
-      const hRatio = (canvas.width / BGImage.width) * scale * BGImage.height;
-      context?.drawImage(
-        BGImage,
-        (canvas.width - canvas.width * scale) / 2,
-        canvas.height - hRatio,
-        canvas.width * scale,
-        hRatio
-      );
+      context?.drawImage(BGImage, 0, 0, canvas.width, canvas.height);
     } catch (error) {
       // console.log(error);
     }
@@ -279,10 +272,11 @@
 
     //context?.scale(-1, 1); //flip horizental
 
-    context?.drawImage(vidCapture, 0, 0);
+    context?.drawImage(vidCapture, 0, 0, canvas.width, canvas.height);
     context?.restore();
-    //DrawBottom(context);
-
+    context.globalAlpha = 0.4;
+    DrawBottom(context);
+    context?.restore();
     // imgurl = canva.toDataURL("image/png");
 
     // dispatch("frame", { url: imgurl });
@@ -412,4 +406,4 @@
   autoplay
   playsinline
 />
-<canvas class="object-cover max-w-full" bind:this={canvas} />
+<canvas class="object-fill w-[100vw] h-[100vh]" bind:this={canvas} />

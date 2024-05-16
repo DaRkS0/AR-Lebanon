@@ -20,6 +20,9 @@ importers:
       '@types/w3c-image-capture':
         specifier: ^1.0.10
         version: 1.0.10
+      '@vitejs/plugin-basic-ssl':
+        specifier: ^1.1.0
+        version: 1.1.0(vite@5.2.11)
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.19(postcss@8.4.38)
@@ -357,6 +360,12 @@ packages:
 
   '@types/webrtc@0.0.43':
     resolution: {integrity: sha512-W5FyScaZ+nLb0CXP/4UaRiNr042RwW/RnLUZYt0uwveZN8w+X1gtt0bYIg9oMzt5ODiU/aQV/kyCFv24wfNrXA==}
+
+  '@vitejs/plugin-basic-ssl@1.1.0':
+    resolution: {integrity: sha512-wO4Dk/rm8u7RNhOf95ZzcEmC9rYOncYgvq4z3duaJrCgjN8BxAnDVyndanfcJZ0O6XZzHz6Q0hTimxTg8Y9g/A==}
+    engines: {node: '>=14.6.0'}
+    peerDependencies:
+      vite: ^3.0.0 || ^4.0.0 || ^5.0.0
 
   acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
@@ -1297,6 +1306,10 @@ snapshots:
       '@types/webrtc': 0.0.43
 
   '@types/webrtc@0.0.43': {}
+
+  '@vitejs/plugin-basic-ssl@1.1.0(vite@5.2.11)':
+    dependencies:
+      vite: 5.2.11
 
   acorn@8.11.3: {}
 
