@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  @apply h-full select-none touch-none;
+}
+* {
+  @apply select-none;
+}
