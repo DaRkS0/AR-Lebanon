@@ -354,7 +354,7 @@
 
     context?.drawImage(vidCapture, 0, 0, canvas.width, canvas.height);
     context?.restore();
-    context.globalAlpha = 0.4;
+    context.globalAlpha = animating ? 1 : 0.4;
     DrawBottom(context);
     context?.restore();
     // imgurl = canva.toDataURL("image/png");
