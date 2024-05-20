@@ -75,7 +75,7 @@
   let fidx = 0;
   let intervaler = -1;
   let animating = false;
-
+  let loadedAny = false;
   /**
    * @type ImageData
    */
@@ -114,6 +114,7 @@
       overlaycanvas
         .getContext("2d")
         ?.drawImage(NImage, 0, 0, overlaycanvas.width, overlaycanvas.height);
+      loadedAny = true;
       fidx++;
       if (fidx < files.length - 1) {
         setTimeout(AnimateNextImage, 450);
@@ -309,7 +310,7 @@
   function DrawBottom(context) {
     try {
       //const scale = 0.7;
-      if (animating && context) {
+      if (animating && loadedAny && context) {
         // context.globalCompositeOperation = "copy";
         // context?.putImageData(nextdata, 0, 0);
         context?.drawImage(overlaycanvas, 0, 0, canvas.width, canvas.height);
