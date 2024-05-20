@@ -113,6 +113,10 @@
     NImage.onload = (e) => {
       overlaycanvas
         .getContext("2d")
+        ?.clearRect(0, 0, overlaycanvas.width, overlaycanvas.height);
+
+      overlaycanvas
+        .getContext("2d")
         ?.drawImage(NImage, 0, 0, overlaycanvas.width, overlaycanvas.height);
       loadedAny = true;
       fidx++;
