@@ -357,7 +357,7 @@
     //context?.restore();
     context.globalAlpha = loadedAny ? 1 : 0.4;
     DrawBottom(context);
-    context?.restore();
+    //context?.restore();
     // imgurl = canva.toDataURL("image/png");
 
     // dispatch("frame", { url: imgurl });
