@@ -24,6 +24,11 @@
   let canvas;
 
   /**
+   * @type HTMLCanvasElement
+   */
+  let overlaycanvas;
+
+  /**
    * @type ImageCapture
    */
   let imageCapture;
@@ -56,8 +61,79 @@
     // biome-ignore lint/complexity/noForEach: <explanation>
     audioStream?.getTracks().forEach((t) => t.stop());
   });
+  const files = [
+    "/AR/1a - history_AR.png",
+    "/AR/1b - history_AR.png",
+    "/AR/1c - history_AR.png",
+    "/AR/1d - history_AR.png",
+    "/AR/1e - history_AR.png",
+    "/AR/1f - history_AR.png",
+    "/AR/1g - history_AR.png",
+    "/AR/1h - history_AR.png",
+    "/AR/1i - history_AR.png",
+  ];
+  let fidx = 0;
+  let intervaler = -1;
+  let animating = false;
 
+  /**
+   * @type ImageData
+   */
+  let nextdata;
+
+  export function StartAnimations() {
+    if (animating) return;
+    animating = true;
+    AnimateNextImage();
+    return;
+    const NImage = new Image();
+    NImage.crossOrigin = "anonymous";
+    NImage.src = files[fidx];
+    NImage.onload = (e) => {
+      const canver = document.createElement("canvas");
+      canver.width = canvas.width;
+      canver.height = canvas.height;
+      canver
+        .getContext("2d")
+        ?.drawImage(NImage, 0, 0, canver.width, canver.height);
+      nextdata = canver
+        .getContext("2d")
+        ?.getImageData(0, 0, canver.width, canver.height);
+      fidx++;
+      if (fidx < files.length - 2) {
+        setTimeout(AnimateNextImage, 450);
+      }
+    };
+  }
+
+  function AnimateNextImage() {
+    const NImage = new Image();
+    NImage.crossOrigin = "anonymous";
+    NImage.src = files[fidx];
+    NImage.onload = (e) => {
+      overlaycanvas
+        .getContext("2d")
+        ?.drawImage(NImage, 0, 0, overlaycanvas.width, overlaycanvas.height);
+      fidx++;
+      if (fidx < files.length - 1) {
+        setTimeout(AnimateNextImage, 450);
+      }
+    };
+  }
+  // export function StartAnimations() {
+  //   if (animating) return;
+  //   animating = true;
+  //   intervaler = setInterval(() => {
+  //     if (fidx < files.length - 1) {
+  //       const BGImage = new Image();
+  //       BGImage.crossOrigin = "anonymous";
+  //       BGImage.src = files[fidx];
+  //       fidx++;
+  //     } else clearInterval(intervaler);
+  //   }, 450);
+  // }
   onMount(async () => {
+    overlaycanvas = document.createElement("canvas");
     BGImage = new Image();
     BGImage.crossOrigin = "anonymous";
     BGImage.src = "1.png";
@@ -66,6 +142,7 @@
       audio: false,
       video: {
         facingMode: { ideal: "environment" },
+        resizeMode: { exact: "none" },
         // focusDistance: { exact: 50.0 },
         // focusMode: { exact: ["manual"] },
         //   deviceId: { exact: deviceId },
@@ -101,6 +178,8 @@
     VidWidth = Settings.width ?? 1080;
     canvas.width = VidWidth;
     canvas.height = VidHeight;
+    overlaycanvas.width = VidWidth;
+    overlaycanvas.height = VidHeight;
     // VidHeight = 1920;
     // VidWidth = 1080;
     FrameRate = Settings.frameRate ?? 30;
@@ -230,7 +309,11 @@
   function DrawBottom(context) {
     try {
       //const scale = 0.7;
-      context?.drawImage(BGImage, 0, 0, canvas.width, canvas.height);
+      if (animating && context) {
+        // context.globalCompositeOperation = "copy";
+        // context?.putImageData(nextdata, 0, 0);
+        context?.drawImage(overlaycanvas, 0, 0, canvas.width, canvas.height);
+      } else context?.drawImage(BGImage, 0, 0, canvas.width, canvas.height);
     } catch (error) {
       // console.log(error);
     }

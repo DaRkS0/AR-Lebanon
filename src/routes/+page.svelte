@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
   import Webcam from "$lib/webcam.svelte";
   import { onMount } from "svelte";
   import { dev } from "$app/environment";
-
+  let webcamer: Webcam;
   onMount(() => {
     if ("serviceWorker" in navigator) {
       // navigator.serviceWorker.register("/service-worker.js", {
@@ -22,7 +22,9 @@
       <button><img class="max-w-2" src="/left.png" alt="" /></button>
       <button><img class="max-w-2" src="/right.png" alt="" /></button>
     </div>
-    <button><img class="max-w-4" src="/reset.png" alt="" /></button>
+    <button on:click={() => webcamer.StartAnimations()}
+      ><img class="max-w-4" src="/reset.png" alt="" /></button
+    >
   </div>
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
     <button
@@ -30,5 +32,5 @@
       on:click={() => document.body.requestFullscreen()}>FullScreen</button
     >
   </div>
-  <Webcam />
+  <Webcam bind:this={webcamer} />
 </div>
