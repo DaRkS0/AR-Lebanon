@@ -346,15 +346,15 @@
     canvas.width = Settings.height ?? 720;
     canvas.height = Settings.width ?? 1280;
     const context = canvas.getContext("2d");
+    context?.clearRect(0, 0, canvas.width, canvas.height);
 
-    context?.save();
+    // context?.save();
     // context?.translate(canvas.width / 2, canvas.height / 2);
     //context?.rotate((degrees * Math.PI) / 180);
 
     //context?.scale(-1, 1); //flip horizental
-    context?.clearRect(0, 0, canvas.width, canvas.height);
     context?.drawImage(vidCapture, 0, 0, canvas.width, canvas.height);
-    context?.restore();
+    //context?.restore();
     context.globalAlpha = loadedAny ? 1 : 0.4;
     DrawBottom(context);
     context?.restore();
