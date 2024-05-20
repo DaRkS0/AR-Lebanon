@@ -352,7 +352,7 @@
     //context?.rotate((degrees * Math.PI) / 180);
 
     //context?.scale(-1, 1); //flip horizental
-
+    context?.clearRect(0, 0, canvas.width, canvas.height);
     context?.drawImage(vidCapture, 0, 0, canvas.width, canvas.height);
     context?.restore();
     context.globalAlpha = loadedAny ? 1 : 0.4;
