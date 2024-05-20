@@ -7,4 +7,6 @@ export default defineConfig({
 	server: {
 		proxy: {},
 	},
+
+	//plugins: [sveltekit()],
 });

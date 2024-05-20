@@ -65,14 +65,12 @@
     stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
-        facingMode: { exact: "environment" },
-
+        facingMode: { ideal: "environment" },
         // focusDistance: { exact: 50.0 },
         // focusMode: { exact: ["manual"] },
         //   deviceId: { exact: deviceId },
         // deviceId:
         //   "e83df7deec167d1da8bacaa73c67901c6b68e9177cb3eb3429ab2dc5e80c0e28",
-
         //    width: {
         //   // min: BGImage.width / 2,
         //   // exact: BGImage.width,
@@ -85,11 +83,10 @@
         // },
         // width: { min: 720, ideal: BGImage.width }, //720
         // height: { min: 1280, ideal: BGImage.height }, //1280
-
         // width: { exact: 4032 }, //720
         // height: { min: 1280 }, //1280
         // frameRate: { ideal: 60, min: 24 },
-        aspectRatio: { exact: 1.33 },
+        aspectRatio: { exact: 4 / 3 },
         //  aspectRatio: { exact: 16 / 9 },
         // advanced: [{ aspectRatio: { exact: 9 / 16 } }],
       },
@@ -260,7 +257,7 @@
   function StartCanvasProjection() {
     const track = stream.getVideoTracks()[0];
     const Settings = track.getSettings();
-    console.log(Settings);
+    //console.log(Settings);
     const degrees = -90;
     canvas.width = Settings.height ?? 720;
     canvas.height = Settings.width ?? 1280;
@@ -406,4 +403,7 @@
   autoplay
   playsinline
 />
-<canvas class="object-fill w-[100vw] h-[100vh]" bind:this={canvas} />
+<canvas
+  class="mx-auto max-h-screen w-[100vw] aspect-[4/3]"
+  bind:this={canvas}
+/>

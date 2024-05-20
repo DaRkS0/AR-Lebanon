@@ -1,8 +1,34 @@
 <script>
   import Webcam from "$lib/webcam.svelte";
-  import Cam from "$lib/webcam.svelte";
+  import { onMount } from "svelte";
+  import { dev } from "$app/environment";
+
+  onMount(() => {
+    if ("serviceWorker" in navigator) {
+      // navigator.serviceWorker.register("/service-worker.js", {
+      //   type: dev ? "module" : "classic",
+      // });
+      // Wait until the service worker is ready
+      navigator.serviceWorker.ready.then(() => {
+        console.log("Loaded All Data");
+      });
+    }
+  });
 </script>
 
 <div class="h-full w-full flex">
+  <div class="absolute top-[5vh] right-[2vw] flex flex-col gap-1">
+    <div class="flex gap-4">
+      <button><img class="max-w-2" src="/left.png" alt="" /></button>
+      <button><img class="max-w-2" src="/right.png" alt="" /></button>
+    </div>
+    <button><img class="max-w-4" src="/reset.png" alt="" /></button>
+  </div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <button
+      class="bg-red-600 text-white p-4 font-bold text-xl"
+      on:click={() => document.body.requestFullscreen()}>FullScreen</button
+    >
+  </div>
   <Webcam />
 </div>
