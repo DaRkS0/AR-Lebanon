@@ -359,7 +359,7 @@
     //context?.scale(-1, 1); //flip horizental
     context?.drawImage(vidCapture, 0, 0, canvas.width, canvas.height);
     //context?.restore();
-    context.globalAlpha = loadedAny ? 1 : 0.4;
+    context.globalAlpha = loadedAny ? 1 : 0.65;
     DrawBottom(context);
     //context?.restore();
     // imgurl = canva.toDataURL("image/png");
