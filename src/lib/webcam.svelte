@@ -45,8 +45,9 @@
         canvas.width = height;
         canvas.height = width;
       }
+      requestAnimationFrame(StartCanvasProjection);
 
-      StartCanvasProjection();
+      // StartCanvasProjection();
     }
   }
 
