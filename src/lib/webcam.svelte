@@ -53,8 +53,13 @@
   function StartCanvasProjection() {
     try {
       const context = canvas.getContext("2d");
-      //context?.clearRect(0, 0, canvas.width, canvas.height);
-      context?.drawImage(vidCapture, 0, 0, canvas.width, canvas.height);
+      if (context) {
+        context.fillStyle = "red"; // Using a named color
+        //console.log("filling");
+        //context?.fillRect(0, 0, canvas.width, canvas.height);
+        //context?.clearRect(0, 0, canvas.width, canvas.height);
+        context?.drawImage(vidCapture, 0, 0, canvas.width, canvas.height);
+      }
     } catch (error) {}
     requestAnimationFrame(StartCanvasProjection);
   }
@@ -62,15 +67,19 @@
   onMount(StartWebcam);
 </script>
 
-<!-- svelte-ignore a11y-media-has-caption -->
-<video
-  class="h-full w-full"
-  bind:this={vidCapture}
-  on:play={() => (overlay = true)}
-  autoplay
-  playsinline
-/>
-<!-- <canvas
-  class="mx-auto max-h-screen w-[100vw] aspect-[4/3]"
-  bind:this={canvas}
-/> -->
+<div class="h-full w-full relative">
+  <!-- svelte-ignore a11y-media-has-caption -->
+  <video
+    class=" h-full w-[100vw] aspect-[4/3] object-fill hidden"
+    bind:this={vidCapture}
+    on:play={() => (overlay = true)}
+    autoplay
+    playsinline
+  />
+  <div class="absolute top-0 inset-0 h-full w-full bg-transparent z-50">
+    <canvas
+      class="mx-auto max-h-screen w-[100vw] aspect-[4/3]"
+      bind:this={canvas}
+    />
+  </div>
+</div>
