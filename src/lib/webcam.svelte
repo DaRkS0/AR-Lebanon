@@ -64,13 +64,13 @@
 
 <!-- svelte-ignore a11y-media-has-caption -->
 <video
-  class="w-1 opacity-0 hidden"
+  class="h-full w-full"
   bind:this={vidCapture}
   on:play={() => (overlay = true)}
   autoplay
   playsinline
 />
-<canvas
+<!-- <canvas
   class="mx-auto max-h-screen w-[100vw] aspect-[4/3]"
   bind:this={canvas}
-/>
+/> -->
