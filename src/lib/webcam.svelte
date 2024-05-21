@@ -80,9 +80,6 @@
     playsinline
   />
   <div class="absolute top-0 inset-0 h-full w-full bg-transparent z-50">
-    <canvas
-      class="mx-auto max-h-screen w-[100vw] aspect-[4/3]"
-      bind:this={canvas}
-    />
+    <canvas class=" h-screen w-[100vw] aspect-[4/3]" bind:this={canvas} />
   </div>
 </div>
