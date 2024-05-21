@@ -16,16 +16,32 @@
 
   function requestFullscreen(element: HTMLElement) {
     if (element.requestFullscreen) {
-      element.requestFullscreen({ navigationUI: "hide" });
+      element.requestFullscreen({ navigationUI: "hide" }).catch((err) => {
+        alert(
+          `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
+        );
+      });
     } else if (element.mozRequestFullScreen) {
       // Firefox
-      element.mozRequestFullScreen({ navigationUI: "hide" });
+      element.mozRequestFullScreen({ navigationUI: "hide" }).catch((err) => {
+        alert(
+          `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
+        );
+      });
     } else if (element.webkitRequestFullscreen) {
       // Chrome, Safari, Opera
-      element.webkitRequestFullscreen({ navigationUI: "hide" });
+      element.webkitRequestFullscreen({ navigationUI: "hide" }).catch((err) => {
+        alert(
+          `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
+        );
+      });
     } else if (element.msRequestFullscreen) {
       // IE/Edge
-      element.msRequestFullscreen({ navigationUI: "hide" });
+      element.msRequestFullscreen({ navigationUI: "hide" }).catch((err) => {
+        alert(
+          `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
+        );
+      });
     }
   }
 </script>
