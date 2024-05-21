@@ -2,7 +2,7 @@
   import Webcam from "$lib/webcam.svelte";
   import screenfull from "screenfull";
   import { onMount } from "svelte";
-  let loaded = true;
+  let loaded = false;
   let webcamer: Webcam;
   let showbtn = true;
 
