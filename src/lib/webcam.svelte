@@ -54,11 +54,15 @@
     try {
       const context = canvas.getContext("2d");
       if (context) {
-        context.fillStyle = "red"; // Using a named color
+        if (vidCapture.readyState === vidCapture.HAVE_ENOUGH_DATA) {
+          // Draw the video frame to the canvas
+          context.drawImage(vidCapture, 0, 0, canvas.width, canvas.height);
+        }
+        //context.fillStyle = "red"; // Using a named color
         //console.log("filling");
         //context?.fillRect(0, 0, canvas.width, canvas.height);
         //context?.clearRect(0, 0, canvas.width, canvas.height);
-        context?.drawImage(vidCapture, 0, 0, canvas.width, canvas.height);
+        // context?.drawImage(vidCapture, 0, 0, canvas.width, canvas.height);
       }
     } catch (error) {}
     requestAnimationFrame(StartCanvasProjection);
