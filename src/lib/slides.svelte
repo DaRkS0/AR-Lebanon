@@ -15,10 +15,18 @@
   });
 
   function requestFullscreen(element: HTMLElement) {
-    element.requestFullscreen();
-    element.webkitRequestFullscreen();
-    element.mozRequestFullScreen();
-    element.msRequestFullscreen();
+    if (element.requestFullscreen) {
+      element.requestFullscreen({ navigationUI: "hide" });
+    } else if (element.mozRequestFullScreen) {
+      // Firefox
+      element.mozRequestFullScreen({ navigationUI: "hide" });
+    } else if (element.webkitRequestFullscreen) {
+      // Chrome, Safari, Opera
+      element.webkitRequestFullscreen({ navigationUI: "hide" });
+    } else if (element.msRequestFullscreen) {
+      // IE/Edge
+      element.msRequestFullscreen({ navigationUI: "hide" });
+    }
   }
 </script>
 
