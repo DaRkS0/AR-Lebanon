@@ -16,7 +16,7 @@
 </script>
 
 {#if loaded}
-  <div class="absolute top-[5vh] right-[2vw] flex flex-col gap-1">
+  <div class="absolute top-[5vh] right-[2vw] flex flex-col gap-1 z-20">
     <div class="flex gap-4">
       <button><img class="max-w-2" src="/left.png" alt="" /></button>
       <button><img class="max-w-2" src="/right.png" alt="" /></button>
@@ -27,7 +27,7 @@
   </div>
   <div
     class:hidden={!showbtn}
-    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
   >
     <button
       class="bg-red-600 text-white p-4 font-bold text-xl"
