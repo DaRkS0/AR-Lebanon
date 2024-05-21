@@ -62,9 +62,14 @@
   >
     <button
       class="bg-red-600 text-white p-4 font-bold text-xl"
-      on:click={() => {
-        requestFullscreen(document.body);
-        showbtn = false;
+      on:click={async () => {
+        if (screenfull.isEnabled) {
+          await screenfull.request();
+          showbtn = false;
+        } else {
+          alert(`ScreenFUll not working ${screenfull}`);
+          showbtn = false;
+        }
       }}>FullScreen</button
     >
   </div>
