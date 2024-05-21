@@ -13,6 +13,21 @@
       });
     }
   });
+
+  function requestFullscreen(element: HTMLElement) {
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+      // Firefox
+      element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+      // Chrome, Safari, Opera
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+      // IE/Edge
+      element.msRequestFullscreen();
+    }
+  }
 </script>
 
 {#if loaded}
@@ -32,10 +47,8 @@
     <button
       class="bg-red-600 text-white p-4 font-bold text-xl"
       on:click={() => {
+        requestFullscreen(document.body);
         showbtn = false;
-        if (screenfull.isEnabled) {
-          screenfull.request(document.body, { navigationUI: "hide" });
-        }
       }}>FullScreen</button
     >
   </div>
