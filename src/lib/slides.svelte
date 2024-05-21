@@ -34,7 +34,7 @@
       on:click={() => {
         showbtn = false;
         if (screenfull.isEnabled) {
-          screenfull.request(undefined, { navigationUI: "hide" });
+          screenfull.request(document.body, { navigationUI: "hide" });
         }
       }}>FullScreen</button
     >
