@@ -17,7 +17,7 @@
     class:hidden={!isPortrait}
     class="h-full w-full flex items-center justify-center"
   >
-    <img class="w-[25vw]" src="/rotatescreen.gif" alt="" />
+    <img class="w-[445%5vw]" src="/rotatescreen.gif" alt="" />
   </div>
 
   <div class:hidden={isPortrait} class="h-full w-full">
