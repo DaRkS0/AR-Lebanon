@@ -2,7 +2,7 @@
   import WebcamSlider from "$lib/slides.svelte";
   import { onMount } from "svelte";
 
-  let isPortrait = false;
+  let isPortrait = true;
   onMount(() => {
     isPortrait = window.screen.orientation.type.includes("portrait");
     window.screen.orientation.onchange = (e) => {

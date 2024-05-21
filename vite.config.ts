@@ -3,10 +3,10 @@ import { defineConfig } from "vite";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 
 export default defineConfig({
-	// plugins: [basicSsl(), sveltekit()],
-	// server: {
-	// 	proxy: {},
-	// },
+	plugins: [basicSsl(), sveltekit()],
+	server: {
+		proxy: {},
+	},
 
-	plugins: [sveltekit()],
+	//plugins: [sveltekit()],
 });
