@@ -31,6 +31,7 @@
       video: {
         facingMode: { ideal: "environment" },
         aspectRatio: { exact: aspect },
+        frameRate: { min: 24 },
       },
     });
     if (stream) {
