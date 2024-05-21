@@ -1,7 +1,7 @@
 <script>
   import { onMount, createEventDispatcher, onDestroy } from "svelte";
   const dispatch = createEventDispatcher();
-  export let facingMode = "user";
+  export let facingMode = "environment";
   let imgurl = "";
   let VidHeight = 0;
   let VidWidth = 0;
