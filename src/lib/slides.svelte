@@ -87,7 +87,7 @@
     >
   </div>
   <div
-    class:hidden={!showbtn || screenfull.isFullscreen}
+    class:hidden={!showbtn || screenfull.isFullscreen || !screenfull.isEnabled}
     class="absolute right-4 bottom-4 z-20"
   >
     <button

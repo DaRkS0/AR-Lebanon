@@ -8,7 +8,7 @@
     if (screenfull.isEnabled) {
       await screenfull.request();
     } else {
-      alert(`FullScreen Not Allowed!`);
+      //alert(`FullScreen Not Allowed!`);
     }
     goto("AR");
   }
