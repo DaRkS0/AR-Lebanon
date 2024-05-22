@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   const counts = [9, 6, 2, 17, 3];
-  export let Lang: "AR" | "EN" = "AR";
-  export let Group = 4;
+  export let Lang = "AR";
+  export let Group = 1;
   export let GroupIdx = 1;
   const url = "https://fra1.digitaloceanspaces.com/ekaterra-test/Lebanon";
 
@@ -67,6 +67,7 @@
   function AnimateNextImage() {
     const NImage = new Image();
     NImage.crossOrigin = "anonymous";
+    console.log("from cam ", { Lang });
     NImage.src = `${url}/${Lang}/${Group}/${GroupIdx}.png`;
     NImage.onload = (e) => {
       overlaycanvas

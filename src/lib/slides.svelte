@@ -1,54 +1,23 @@
 <script lang="ts">
+  import * as lib from "$lib";
   import Webcam from "$lib/webcam.svelte";
   import screenfull from "screenfull";
   import { onMount } from "svelte";
   let loaded = false;
   let webcamer: Webcam;
   let showbtn = true;
+  const counts = [9, 6, 2, 17, 3];
+  let Lang = "AR";
 
   onMount(() => {
+    Lang = lib.getCookie("Lang");
+
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.ready.then(async () => {
         loaded = true;
-        setTimeout(async () => {
-          await fetch(
-            "https://fra1.digitaloceanspaces.com/ekaterra-test/Lebanon/AR/1/2.png"
-          );
-        }, 500);
       });
     }
   });
-
-  function requestFullscreen(element: HTMLElement) {
-    if (element.requestFullscreen) {
-      element.requestFullscreen({ navigationUI: "hide" }).catch((err) => {
-        alert(
-          `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
-        );
-      });
-    } else if (element.mozRequestFullScreen) {
-      // Firefox
-      element.mozRequestFullScreen({ navigationUI: "hide" }).catch((err) => {
-        alert(
-          `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
-        );
-      });
-    } else if (element.webkitRequestFullscreen) {
-      // Chrome, Safari, Opera
-      element.webkitRequestFullscreen({ navigationUI: "hide" }).catch((err) => {
-        alert(
-          `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
-        );
-      });
-    } else if (element.msRequestFullscreen) {
-      // IE/Edge
-      element.msRequestFullscreen({ navigationUI: "hide" }).catch((err) => {
-        alert(
-          `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
-        );
-      });
-    }
-  }
 </script>
 
 {#if loaded}
@@ -62,7 +31,7 @@
     >
   </div>
   <div
-    class:hidden={!showbtn}
+    class:hidden={!showbtn || screenfull.isFullscreen}
     class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
   >
     <button
@@ -78,7 +47,9 @@
       }}>FullScreen</button
     >
   </div>
-  <Webcam bind:this={webcamer} />
+  <Webcam bind:this={webcamer} bind:Lang />
 {:else}
-  <p class="mx-auto my-auto text-3xl">Loading....</p>
+  <div class="h-full w-full flex flex-col items-center justify-center">
+    <p class="mx-auto my-auto text-3xl">Loading....</p>
+  </div>
 {/if}

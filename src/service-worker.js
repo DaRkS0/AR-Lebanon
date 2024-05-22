@@ -28,7 +28,7 @@ self.addEventListener("install", (event) => {
     const cache = await caches.open(CACHE);
     await cache.addAll(ASSETS);
   }
-  console.log("service worker ", ASSETS);
+  // console.log("service worker ", ASSETS);
   event.waitUntil(addFilesToCache());
 });
 
@@ -46,7 +46,7 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   // ignore POST requests etc
   if (event.request.method !== "GET") return;
-  console.log("Ad ", event.request.url);
+  // console.log("Ad ", event.request.url);
   async function respond() {
     const url = new URL(event.request.url);
     const cache = await caches.open(CACHE);
@@ -60,7 +60,7 @@ self.addEventListener("fetch", (event) => {
       const response = await cache.match(url);
 
       if (response) {
-        console.log("DO Image from cache ", response);
+        //      console.log("DO Image from cache ", response);
         return response;
       }
 
@@ -75,7 +75,7 @@ self.addEventListener("fetch", (event) => {
 
         if (response.status === 200) {
           cache.put(event.request, response.clone());
-          console.log("DO Image Added ", cache);
+          //   console.log("DO Image Added ", cache);
         }
 
         return response;
