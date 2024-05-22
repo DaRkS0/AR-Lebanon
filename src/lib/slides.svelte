@@ -6,7 +6,7 @@
   let loaded = false;
   let webcamer: Webcam;
   let showbtn = true;
-  const counts = [9, 6, 2, 17, 3];
+  const counts = [9, 6, 2, 17, 1, 1, 1];
   let Lang = "AR";
   let Group = 1;
   let GroupIdx = 1;
@@ -104,9 +104,12 @@
     >
   </div>
 
-  <div class:hidden={!next || Group >= 5} class="absolute left-4 bottom-4 z-20">
+  <div
+    class:hidden={!next || Group >= counts.length}
+    class="absolute left-4 bottom-4 z-20"
+  >
     <button
-      class="bg-red-600 text-white p-2 font-bold text-lg rounded-xl"
+      class="bg-red-600 text-white p-2 font-bold text-lg rounded-xl transition-all active:scale-95"
       on:click={async () => {
         next = false;
         groupPlayed = false;

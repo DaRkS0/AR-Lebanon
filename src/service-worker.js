@@ -8,7 +8,7 @@ const ASSETS = [
   ...build, // the app itself
   ...files, // everything in `static`
 ];
-const counts = [9, 6, 2, 17, 3];
+const counts = [9, 6, 2, 17, 1, 1, 1];
 const Tags = ["AR", "EN"];
 const url = "https://fra1.digitaloceanspaces.com/ekaterra-test/Lebanon";
 for (let index = 0; index < counts.length; index++) {

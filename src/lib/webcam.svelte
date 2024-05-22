@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  const counts = [9, 6, 2, 17, 3];
+  const counts = [9, 6, 2, 17, 1, 1, 1];
+  const timeTable = [450, 650, 650, 450, 450, 450, 450];
   export let Lang = "AR";
   export let Group = 1;
   export let GroupIdx = 1;
@@ -77,8 +78,8 @@
     loadedAny = true;
     if (autoplay) {
       if (GroupIdx < counts[Group - 1]) {
-        setTimeout(AnimateNextImage, 450);
-        GroupIdx++;
+        setTimeout(AnimateNextImage, timeTable[Group - 1]);
+        GroupIdx = GroupIdx + 1;
       } else animating = false;
     }
   }
