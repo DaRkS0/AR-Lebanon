@@ -19,6 +19,9 @@ for (let index = 0; index < counts.length; index++) {
   }
 }
 
+ASSETS.push(`${url}/AR/0.png`);
+ASSETS.push(`${url}/EN/1.png`);
+
 self.addEventListener("install", (event) => {
   // Create a new cache and add all files to it
   async function addFilesToCache() {
