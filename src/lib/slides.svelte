@@ -8,7 +8,8 @@
   let showbtn = true;
   const counts = [9, 6, 2, 17, 3];
   let Lang = "AR";
-
+  let Group = 1;
+  let GroupIdx = 1;
   onMount(() => {
     Lang = lib.getCookie("Lang");
 
@@ -18,6 +19,11 @@
       });
     }
   });
+  $: CheckSlide(GroupIdx);
+  let next = false;
+  function CheckSlide(idx: number) {
+    next = GroupIdx > counts[Group - 1];
+  }
 </script>
 
 {#if loaded}
@@ -32,10 +38,10 @@
   </div>
   <div
     class:hidden={!showbtn || screenfull.isFullscreen}
-    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
+    class="absolute right-4 bottom-4 z-20"
   >
     <button
-      class="bg-red-600 text-white p-4 font-bold text-xl"
+      class="bg-red-600 text-white p-2 font-bold text-lg rounded-xl"
       on:click={async () => {
         if (screenfull.isEnabled) {
           await screenfull.request();
@@ -47,7 +53,19 @@
       }}>FullScreen</button
     >
   </div>
-  <Webcam bind:this={webcamer} bind:Lang />
+
+  <div class:hidden={!next || Group >= 5} class="absolute left-4 bottom-4 z-20">
+    <button
+      class="bg-red-600 text-white p-2 font-bold text-lg rounded-xl"
+      on:click={async () => {
+        next = false;
+        Group++;
+        GroupIdx = 0;
+        webcamer.StartAnimations();
+      }}>{Lang === "AR" ? "التالي" : "Next"}</button
+    >
+  </div>
+  <Webcam bind:this={webcamer} bind:Lang bind:Group bind:GroupIdx />
 {:else}
   <div class="h-full w-full flex flex-col items-center justify-center">
     <p class="mx-auto my-auto text-3xl">Loading....</p>

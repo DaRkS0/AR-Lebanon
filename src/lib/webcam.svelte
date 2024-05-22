@@ -67,7 +67,6 @@
   function AnimateNextImage() {
     const NImage = new Image();
     NImage.crossOrigin = "anonymous";
-    console.log("from cam ", { Lang });
     NImage.src = `${url}/${Lang}/${Group}/${GroupIdx}.png`;
     NImage.onload = (e) => {
       overlaycanvas
