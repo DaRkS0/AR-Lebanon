@@ -11,10 +11,24 @@
   let Group = 1;
   let GroupIdx = 1;
   let animating = false;
+  let progress = "";
   onMount(() => {
     Lang = lib.getCookie("Lang");
 
     if ("serviceWorker" in navigator) {
+      // navigator.serviceWorker.register("/service-worker.js", {
+      //   type: "module",
+      // });
+      navigator.serviceWorker.addEventListener("message", (event) => {
+        //console.log(event);
+
+        if (event.data.type === "progress") {
+          progress = event.data.progress + "%";
+          // Update progress bar or display progress in UI
+          // console.log("Client Progress:", event.data.progress + "%");
+        }
+      });
+
       navigator.serviceWorker.ready.then(async () => {
         loaded = true;
       });
@@ -92,7 +106,8 @@
     bind:animating
   />
 {:else}
-  <div class="h-full w-full flex flex-col items-center justify-center">
+  <div class="h-full w-full flex flex-col gap-4 items-center justify-center">
     <p class="mx-auto my-auto text-3xl">Loading....</p>
+    <p class="mx-auto my-auto text-lg">{progress}</p>
   </div>
 {/if}

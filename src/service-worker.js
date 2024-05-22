@@ -27,6 +27,7 @@ self.addEventListener("install", (event) => {
   async function addFilesToCache() {
     const cache = await caches.open(CACHE);
     await cache.addAll(ASSETS);
+    //await addToCache(ASSETS);
   }
   // console.log("service worker ", ASSETS);
   event.waitUntil(addFilesToCache());
@@ -130,3 +131,56 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith(respond());
 });
+
+async function addToCache(urls) {
+  return new Promise(async (resolve, reject) => {
+    const total = urls.length;
+    let completed = 0;
+    const cache = await caches.open(CACHE);
+
+    const trackProgress = () => {
+      completed++;
+      const progress = (completed / total) * 100;
+      //console.log(`Progress: ${progress.toFixed(2)}%`);
+
+      self.clients
+        .matchAll({ includeUncontrolled: true, type: "window" })
+        .then((clients) => {
+          //console.log({ clients });
+          clients.forEach((client) => {
+            client.postMessage({
+              type: "progress",
+              progress: progress.toFixed(2),
+            });
+          });
+        });
+    };
+
+    const errorHandler = (error) => {
+      console.error("Cache add error:", error);
+      reject(error);
+    };
+
+    const successHandler = () => {
+      console.log("All items added to cache successfully.");
+      resolve();
+    };
+
+    const cachePromises = urls.map((url) =>
+      fetch(url).then((response) => {
+        trackProgress();
+        return cache.put(url, response);
+      })
+    );
+
+    caches
+      .open(CACHE)
+      .then(() => Promise.all(cachePromises))
+      .then(successHandler)
+      .catch(errorHandler);
+  });
+}
+
+function dispatchProgress({ client, loaded, total }) {
+  client.postMessage({ loaded, total });
+}
