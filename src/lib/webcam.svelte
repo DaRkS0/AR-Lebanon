@@ -1,17 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  const counts = [9, 6, 2, 17, 3];
+  export let Lang: "AR" | "EN" = "AR";
+  export let Group = 4;
+  export let GroupIdx = 1;
+  const url = "https://fra1.digitaloceanspaces.com/ekaterra-test/Lebanon";
 
-  const files = [
-    "/AR/1a - history_AR.png",
-    "/AR/1b - history_AR.png",
-    "/AR/1c - history_AR.png",
-    "/AR/1d - history_AR.png",
-    "/AR/1e - history_AR.png",
-    "/AR/1f - history_AR.png",
-    "/AR/1g - history_AR.png",
-    "/AR/1h - history_AR.png",
-    "/AR/1i - history_AR.png",
-  ];
   let vidCapture: HTMLVideoElement;
   let BGImage: HTMLImageElement;
   let stream: MediaStream;
@@ -69,13 +63,11 @@
 
   onMount(StartWebcam);
 
-  let fidx = 0;
-
   let animating = false;
   function AnimateNextImage() {
     const NImage = new Image();
     NImage.crossOrigin = "anonymous";
-    NImage.src = files[fidx];
+    NImage.src = `${url}/${Lang}/${Group}/${GroupIdx}.png`;
     NImage.onload = (e) => {
       overlaycanvas
         .getContext("2d")
@@ -85,15 +77,15 @@
         .getContext("2d")
         ?.drawImage(NImage, 0, 0, overlaycanvas.width, overlaycanvas.height);
       loadedAny = true;
-      fidx++;
-      if (fidx < files.length - 1) {
+      GroupIdx++;
+      if (GroupIdx <= counts[Group - 1]) {
         setTimeout(AnimateNextImage, 450);
       }
     };
   }
   export function StartAnimations() {
-    if (fidx === files.length - 1) {
-      fidx = 0;
+    if (GroupIdx >= counts[Group - 1]) {
+      GroupIdx = 1;
       animating = false;
     }
     if (animating) return;
