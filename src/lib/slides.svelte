@@ -8,8 +8,13 @@
 
   onMount(() => {
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.ready.then(() => {
+      navigator.serviceWorker.ready.then(async () => {
         loaded = true;
+        setTimeout(async () => {
+          await fetch(
+            "https://fra1.digitaloceanspaces.com/ekaterra-test/Lebanon/AR/1/2.png"
+          );
+        }, 500);
       });
     }
   });
