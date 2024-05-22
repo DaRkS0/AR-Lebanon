@@ -10,6 +10,7 @@
   let Lang = "AR";
   let Group = 1;
   let GroupIdx = 1;
+  let animating = false;
   onMount(() => {
     Lang = lib.getCookie("Lang");
 
@@ -25,17 +26,16 @@
     next = GroupIdx >= counts[Group - 1];
   }
   function NextSlide() {
+    if (animating) return;
     if (GroupIdx < counts[Group - 1]) {
       GroupIdx = GroupIdx + 1;
       webcamer.AnimateNextImage(false);
     }
   }
   function PrevSlide() {
-    console.log({ GroupIdx });
-
+    if (animating) return;
     if (GroupIdx > 1) {
       GroupIdx = GroupIdx - 1;
-      console.log({ GroupIdx });
       webcamer.AnimateNextImage(false);
     }
   }
@@ -84,7 +84,13 @@
       }}>{Lang === "AR" ? "التالي" : "Next"}</button
     >
   </div>
-  <Webcam bind:this={webcamer} bind:Lang bind:Group bind:GroupIdx />
+  <Webcam
+    bind:this={webcamer}
+    bind:Lang
+    bind:Group
+    bind:GroupIdx
+    bind:animating
+  />
 {:else}
   <div class="h-full w-full flex flex-col items-center justify-center">
     <p class="mx-auto my-auto text-3xl">Loading....</p>

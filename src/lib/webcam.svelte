@@ -4,6 +4,8 @@
   export let Lang = "AR";
   export let Group = 1;
   export let GroupIdx = 1;
+  export let animating = false;
+
   const url = "https://fra1.digitaloceanspaces.com/ekaterra-test/Lebanon";
 
   let vidCapture: HTMLVideoElement;
@@ -33,7 +35,7 @@
 
       const track = stream.getVideoTracks()[0];
       const Settings = track.getSettings();
-      console.log({ track, Settings });
+      //console.log({ track, Settings });
       const { height, width } = Settings;
       if (height && width) {
         canvas.width = height;
@@ -63,8 +65,6 @@
 
   onMount(StartWebcam);
 
-  let animating = false;
-
   function DrawImg(NImage: HTMLImageElement, autoplay: boolean) {
     overlaycanvas
       .getContext("2d")
@@ -74,9 +74,11 @@
       .getContext("2d")
       ?.drawImage(NImage, 0, 0, overlaycanvas.width, overlaycanvas.height);
     loadedAny = true;
-    if (autoplay && GroupIdx < counts[Group - 1]) {
-      setTimeout(AnimateNextImage, 450);
-      GroupIdx++;
+    if (autoplay) {
+      if (GroupIdx < counts[Group - 1]) {
+        setTimeout(AnimateNextImage, 450);
+        GroupIdx++;
+      } else animating = false;
     }
   }
 
