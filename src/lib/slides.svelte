@@ -22,15 +22,34 @@
   $: CheckSlide(GroupIdx);
   let next = false;
   function CheckSlide(idx: number) {
-    next = GroupIdx > counts[Group - 1];
+    next = GroupIdx >= counts[Group - 1];
+  }
+  function NextSlide() {
+    if (GroupIdx < counts[Group - 1]) {
+      GroupIdx = GroupIdx + 1;
+      webcamer.AnimateNextImage(false);
+    }
+  }
+  function PrevSlide() {
+    console.log({ GroupIdx });
+
+    if (GroupIdx > 1) {
+      GroupIdx = GroupIdx - 1;
+      console.log({ GroupIdx });
+      webcamer.AnimateNextImage(false);
+    }
   }
 </script>
 
 {#if loaded}
-  <div class="absolute top-[5vh] right-[2vw] flex flex-col gap-1 z-20">
+  <div class="absolute top-[5vh] right-[2vw] flex flex-col gap-4 z-20">
     <div class="flex gap-4">
-      <button><img class="max-w-2" src="/left.png" alt="" /></button>
-      <button><img class="max-w-2" src="/right.png" alt="" /></button>
+      <button on:click={PrevSlide}
+        ><img class="max-w-2" src="/left.png" alt="" /></button
+      >
+      <button on:click={NextSlide}
+        ><img class="max-w-2" src="/right.png" alt="" /></button
+      >
     </div>
     <button on:click={webcamer.StartAnimations}
       ><img class="max-w-4" src="/reset.png" alt="" /></button

@@ -64,24 +64,27 @@
   onMount(StartWebcam);
 
   let animating = false;
-  function AnimateNextImage() {
+
+  function DrawImg(NImage: HTMLImageElement, autoplay: boolean) {
+    overlaycanvas
+      .getContext("2d")
+      ?.clearRect(0, 0, overlaycanvas.width, overlaycanvas.height);
+
+    overlaycanvas
+      .getContext("2d")
+      ?.drawImage(NImage, 0, 0, overlaycanvas.width, overlaycanvas.height);
+    loadedAny = true;
+    if (autoplay && GroupIdx < counts[Group - 1]) {
+      setTimeout(AnimateNextImage, 450);
+      GroupIdx++;
+    }
+  }
+
+  export function AnimateNextImage(autoplay = true) {
     const NImage = new Image();
     NImage.crossOrigin = "anonymous";
     NImage.src = `${url}/${Lang}/${Group}/${GroupIdx}.png`;
-    NImage.onload = (e) => {
-      overlaycanvas
-        .getContext("2d")
-        ?.clearRect(0, 0, overlaycanvas.width, overlaycanvas.height);
-
-      overlaycanvas
-        .getContext("2d")
-        ?.drawImage(NImage, 0, 0, overlaycanvas.width, overlaycanvas.height);
-      loadedAny = true;
-      GroupIdx++;
-      if (GroupIdx <= counts[Group - 1]) {
-        setTimeout(AnimateNextImage, 450);
-      }
-    };
+    NImage.onload = () => DrawImg(NImage, autoplay);
   }
   export function StartAnimations() {
     if (GroupIdx >= counts[Group - 1]) {
