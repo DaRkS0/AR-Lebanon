@@ -20,7 +20,7 @@
     overlaycanvas = document.createElement("canvas");
     BGImage = new Image();
     BGImage.crossOrigin = "anonymous";
-    BGImage.src = "1.png";
+    BGImage.src = `${url}/${Lang}/0.png`;
 
     stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
@@ -42,6 +42,7 @@
         canvas.height = width;
         overlaycanvas.width = width;
         overlaycanvas.height = height;
+        overlaycanvas.getContext("2d")?.drawImage(BGImage, 0, 0, width, height);
       }
       requestAnimationFrame(StartCanvasProjection);
     }

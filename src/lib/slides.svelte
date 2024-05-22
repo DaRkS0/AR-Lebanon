@@ -11,6 +11,7 @@
   let Group = 1;
   let GroupIdx = 1;
   let animating = false;
+  let groupPlayed = false;
   let progress = "";
   onMount(() => {
     Lang = lib.getCookie("Lang");
@@ -40,6 +41,11 @@
     next = GroupIdx >= counts[Group - 1];
   }
   function NextSlide() {
+    if (!animating && !groupPlayed) {
+      groupPlayed = true;
+      webcamer.StartAnimations();
+      return;
+    }
     if (animating) return;
     if (GroupIdx < counts[Group - 1]) {
       GroupIdx = GroupIdx + 1;
@@ -47,6 +53,12 @@
     }
   }
   function PrevSlide() {
+    if (!animating && !groupPlayed) {
+      groupPlayed = true;
+      webcamer.StartAnimations();
+      return;
+    }
+
     if (animating) return;
     if (GroupIdx > 1) {
       GroupIdx = GroupIdx - 1;
@@ -56,17 +68,22 @@
 </script>
 
 {#if loaded}
-  <div class="absolute top-[5vh] right-[2vw] flex flex-col gap-4 z-20">
+  <div class="absolute top-[3.5vh] right-[2vw] flex flex-col gap-4 z-20">
     <div class="flex gap-4">
       <button on:click={PrevSlide}
-        ><img class="max-w-2" src="/left.png" alt="" /></button
+        ><img class="max-w-4" src="/left.png" alt="" /></button
       >
       <button on:click={NextSlide}
-        ><img class="max-w-2" src="/right.png" alt="" /></button
+        ><img class="max-w-4" src="/right.png" alt="" /></button
       >
     </div>
-    <button on:click={webcamer.StartAnimations}
-      ><img class="max-w-4" src="/reset.png" alt="" /></button
+    <button
+      on:click={() => {
+        if (groupPlayed && !animating) {
+          GroupIdx = 1;
+          webcamer.StartAnimations();
+        }
+      }}><img class="w-8" src="/reset.png" alt="" /></button
     >
   </div>
   <div
@@ -80,7 +97,7 @@
           await screenfull.request();
           showbtn = false;
         } else {
-          alert(`ScreenFUll not working ${screenfull}`);
+          // alert(`ScreenFUll not working ${screenfull}`);
           showbtn = false;
         }
       }}>FullScreen</button
@@ -92,6 +109,7 @@
       class="bg-red-600 text-white p-2 font-bold text-lg rounded-xl"
       on:click={async () => {
         next = false;
+        groupPlayed = false;
         Group++;
         GroupIdx = 0;
         webcamer.StartAnimations();
