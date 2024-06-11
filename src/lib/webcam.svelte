@@ -27,7 +27,7 @@
       audio: false,
       video: {
         facingMode: { ideal: "environment" },
-        aspectRatio: { exact: aspect },
+        aspectRatio: { exact: innerWidth / innerHeight },
         frameRate: { min: 24 },
       },
     });
@@ -72,9 +72,27 @@
       .getContext("2d")
       ?.clearRect(0, 0, overlaycanvas.width, overlaycanvas.height);
 
+    // var c = canvasElement, v=videoElement;
+    // fill vertically
+    var vRatio = (overlaycanvas.height / NImage.height) * NImage.width;
+
+    // fill horizontally
+    // var hRatio = (c.width / v.videoWidth) * v.videoHeight;
+    // ctx.drawImage(v, 0,0, c.width, hRatio);
+
     overlaycanvas
       .getContext("2d")
-      ?.drawImage(NImage, 0, 0, overlaycanvas.width, overlaycanvas.height);
+      ?.drawImage(
+        NImage,
+        (overlaycanvas.width - vRatio) / 2,
+        0,
+        vRatio,
+        overlaycanvas.height
+      );
+
+    // overlaycanvas
+    //   .getContext("2d")
+    //   ?.drawImage(NImage, 0, 0, overlaycanvas.width, overlaycanvas.height);
     loadedAny = true;
     if (autoplay) {
       if (GroupIdx < counts[Group - 1]) {
