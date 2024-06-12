@@ -28,7 +28,7 @@
       audio: false,
       video: {
         facingMode: { ideal: "environment" },
-        aspectRatio: { exact: innerWidth / innerHeight },
+        aspectRatio: { exact: innerHeight / innerWidth },
         frameRate: { min: 24 },
       },
     });
