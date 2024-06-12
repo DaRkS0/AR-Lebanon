@@ -18,16 +18,18 @@
   <div class="flex h-fit gap-20">
     <div class="h-full flex flex-col items-center">
       <button class="transition-all active:scale-95" on:click={() => Add("AR")}>
-        <img class=" h-10" src="/leb.png" alt="" />
+        <!-- <img class=" h-10" src="/leb.png" alt="" /> -->
+        <p>العربيه</p>
       </button>
-      <p>العربيه</p>
+      <!-- <p>العربيه</p> -->
     </div>
 
     <div class="h-full flex flex-col items-center">
       <button class="transition-all active:scale-95" on:click={() => Add("EN")}>
-        <img class="h-10" src="/us.png" alt="" />
+        <!-- <img class="h-10" src="/us.png" alt="" /> -->
+        <p>English</p>
       </button>
-      <p>English</p>
+      <!-- <p>English</p> -->
     </div>
   </div>
 </div>
