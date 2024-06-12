@@ -17,12 +17,13 @@
   const aspect = 4 / 3;
   let overlaycanvas: HTMLCanvasElement;
   let loadedAny = false;
+  let src = "";
   async function StartWebcam() {
     overlaycanvas = document.createElement("canvas");
     BGImage = new Image();
     BGImage.crossOrigin = "anonymous";
     BGImage.src = `${url}/${Lang}/0.png`;
-
+    src = `${url}/${Lang}/0.png`;
     stream = await navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
@@ -45,7 +46,7 @@
         overlaycanvas.height = height;
         overlaycanvas.getContext("2d")?.drawImage(BGImage, 0, 0, width, height);
       }
-      requestAnimationFrame(StartCanvasProjection);
+      //requestAnimationFrame(StartCanvasProjection);
     }
   }
 
@@ -68,31 +69,6 @@
   onMount(StartWebcam);
 
   function DrawImg(NImage: HTMLImageElement, autoplay: boolean) {
-    overlaycanvas
-      .getContext("2d")
-      ?.clearRect(0, 0, overlaycanvas.width, overlaycanvas.height);
-
-    // var c = canvasElement, v=videoElement;
-    // fill vertically
-    var vRatio = (overlaycanvas.height / NImage.height) * NImage.width;
-
-    // fill horizontally
-    // var hRatio = (c.width / v.videoWidth) * v.videoHeight;
-    // ctx.drawImage(v, 0,0, c.width, hRatio);
-    //
-    overlaycanvas
-      .getContext("2d")
-      ?.drawImage(
-        NImage,
-        (overlaycanvas.width - vRatio) / 2,
-        0,
-        vRatio,
-        overlaycanvas.height
-      );
-
-    // overlaycanvas
-    //   .getContext("2d")
-    //   ?.drawImage(NImage, 0, 0, overlaycanvas.width, overlaycanvas.height);
     loadedAny = true;
     if (autoplay) {
       if (GroupIdx < counts[Group - 1]) {
@@ -106,6 +82,7 @@
     const NImage = new Image();
     NImage.crossOrigin = "anonymous";
     NImage.src = `${url}/${Lang}/${Group}/${GroupIdx}.png`;
+    src = `${url}/${Lang}/${Group}/${GroupIdx}.png`;
     NImage.onload = () => DrawImg(NImage, autoplay);
   }
   export function StartAnimations() {
@@ -129,6 +106,7 @@
     playsinline
   />
   <div class="absolute top-0 inset-0 h-full w-full bg-transparent z-10">
-    <canvas class=" h-full w-full" bind:this={canvas} />
+    <!-- <canvas class="h-full w-full" bind:this={canvas} /> -->
+    <img class="object-cover max-h-full mx-auto" {src} alt="" />
   </div>
 </div>
