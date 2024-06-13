@@ -49,7 +49,7 @@
       return;
     }
 
-    if (Group <= counts.length) {
+    if (Group < counts.length) {
       next = false;
       groupPlayed = true;
       Group = Group + 1;
