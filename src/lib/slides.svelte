@@ -41,28 +41,40 @@
     next = GroupIdx >= counts[Group - 1];
   }
   function NextSlide() {
-    if (!animating && !groupPlayed) {
-      groupPlayed = true;
-      webcamer.StartAnimations();
-      return;
-    }
+    console.log({ Group, len: counts.length, animating });
     if (animating) return;
-    if (GroupIdx < counts[Group - 1]) {
-      GroupIdx = GroupIdx + 1;
-      webcamer.AnimateNextImage(false);
-    }
-  }
-  function PrevSlide() {
-    if (!animating && !groupPlayed) {
+    if (!animating && !groupPlayed && Group === 1) {
       groupPlayed = true;
       webcamer.StartAnimations();
       return;
     }
 
+    if (Group <= counts.length) {
+      next = false;
+      groupPlayed = true;
+      Group = Group + 1;
+      console.log({ Group });
+      GroupIdx = 0;
+      webcamer.StartAnimations();
+    }
+  }
+  function PrevSlide() {
+    console.log({ Group, len: counts.length, animating });
+
     if (animating) return;
-    if (GroupIdx > 1) {
-      GroupIdx = GroupIdx - 1;
-      webcamer.AnimateNextImage(false);
+
+    if (!animating && !groupPlayed && Group === 1) {
+      groupPlayed = true;
+      webcamer.StartAnimations();
+      return;
+    }
+    if (Group > 1) {
+      next = false;
+      Group -= 1;
+      GroupIdx = 0;
+      console.log({ Group });
+      groupPlayed = true;
+      webcamer.StartAnimations();
     }
   }
 </script>
@@ -73,7 +85,7 @@
       <button on:click={PrevSlide}
         ><img class="max-w-4" src="/left.png" alt="" /></button
       >
-      <button on:click={NextSlide}
+      <button class:animate-bounce={next && !animating} on:click={NextSlide}
         ><img class="max-w-4" src="/right.png" alt="" /></button
       >
     </div>
@@ -104,7 +116,7 @@
     >
   </div>
 
-  <div
+  <!-- <div
     class:hidden={!next || Group >= counts.length}
     class="absolute left-4 bottom-4 z-20"
   >
@@ -118,7 +130,7 @@
         webcamer.StartAnimations();
       }}>{Lang === "AR" ? "التالي" : "Next"}</button
     >
-  </div>
+  </div> -->
   <Webcam
     bind:this={webcamer}
     bind:Lang

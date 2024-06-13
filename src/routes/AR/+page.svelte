@@ -14,7 +14,7 @@
         await screenfull.request();
       }
     } catch (err) {
-      console.error(`${err}`);
+      console.log(err);
     }
   };
   onMount(() => {
