@@ -3,6 +3,8 @@
   import Webcam from "$lib/webcam.svelte";
   import screenfull from "screenfull";
   import { onMount } from "svelte";
+  import { page } from "$app/stores";
+
   let loaded = false;
   let webcamer: Webcam;
   let showbtn = true;
@@ -14,7 +16,9 @@
   let groupPlayed = false;
   let progress = "";
   onMount(() => {
-    Lang = lib.getCookie("Lang");
+    if ($page.params.lang) {
+      Lang = $page.params.lang;
+    } else Lang = lib.getCookie("Lang");
 
     if ("serviceWorker" in navigator) {
       // navigator.serviceWorker.register("/service-worker.js", {

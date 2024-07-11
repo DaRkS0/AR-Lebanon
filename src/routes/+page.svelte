@@ -4,15 +4,17 @@
   import screenfull from "screenfull";
   let showMenu = false;
   let lang = -1;
-  let locations = [
-    "AR",
+  $: locations = [
+    `AR`,
     "https://publicworksstudio.com/en/how-to-protect-residents-of-the-neighborhoods-affected-by-the-beirut-port-explosion/",
     "",
   ];
   const menuEN = ["AR experience", "legal agenda", "publicworks"];
   const menuAR = ["تجربة الواقع الافتراضى", "legal agenda", "publicworks"];
   const menu = [menuEN, menuAR];
+  let lano = "AR";
   async function Add(val: string) {
+    lano = val;
     lib.addCookie("Lang", val, 30);
     lang = val === "AR" ? 1 : 0;
     if (screenfull.isEnabled) {
@@ -51,7 +53,11 @@
       </div>
     {:else}
       {#each menu[lang] as t, idx}
-        <a href={locations[idx]} target={idx > 0 ? "_blank" : "_self"}>{t}</a>
+        {#if idx === 0}
+          <a href={`${locations[idx]}/${lano}`}>{t}</a>
+        {:else}
+          <a href={locations[idx]} target={idx > 0 ? "_blank" : "_self"}>{t}</a>
+        {/if}
       {/each}
     {/if}
   </div>
