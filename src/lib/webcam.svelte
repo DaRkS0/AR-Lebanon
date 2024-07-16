@@ -110,8 +110,10 @@
     autoplay
     playsinline
   />
-  <div class="absolute top-0 inset-0 h-full w-full bg-transparent z-10">
+  <div class="absolute top-0 inset-0 h-full w-full bg-transparent z-10 flex">
+    <div class="flex-1 bg-white"></div>
     <!-- <canvas class="h-full w-full" bind:this={canvas} /> -->
     <img class="object-cover max-h-full mx-auto" {src} alt="" />
+    <div class="flex-1 bg-white"></div>
   </div>
 </div>
