@@ -29,6 +29,11 @@
 
         if (event.data.type === "progress") {
           progress = event.data.progress + "%";
+          if (event.data.progress >= 100) {
+            setTimeout(() => {
+              loaded = true;
+            }, 1500);
+          }
           // Update progress bar or display progress in UI
           // console.log("Client Progress:", event.data.progress + "%");
         }
