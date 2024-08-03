@@ -111,9 +111,9 @@
     playsinline
   />
   <div class="absolute top-0 inset-0 h-full w-full bg-transparent z-10 flex">
-    <div class="flex-1 bg-white"></div>
+    <div class="flex-1 bg-white bg-opacity-30"></div>
     <!-- <canvas class="h-full w-full" bind:this={canvas} /> -->
     <img class="object-cover max-h-full mx-auto" {src} alt="" />
-    <div class="flex-1 bg-white"></div>
+    <div class="flex-1 bg-white bg-opacity-30"></div>
   </div>
 </div>
