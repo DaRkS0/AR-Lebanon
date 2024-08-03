@@ -5,7 +5,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
 
-  let loaded = false;
+  let loaded = true;
   let webcamer: Webcam;
   let showbtn = true;
   const counts = [9, 6, 2, 17, 1, 1, 1];
@@ -91,14 +91,18 @@
 {#if loaded}
   <div class="absolute top-[3.5vh] right-[2vw] flex flex-col gap-4 z-20">
     <div class="flex gap-4">
-      <button on:click={PrevSlide}
-        ><img class="max-w-4" src="/left.png" alt="" /></button
+      <button class="bg-white bg-opacity-35" on:click={PrevSlide}
+        ><img class="max-w-6" src="/left.png" alt="" /></button
       >
-      <button class:animate-bounce={next && !animating} on:click={NextSlide}
-        ><img class="max-w-4" src="/right.png" alt="" /></button
+      <button
+        class="bg-white bg-opacity-35"
+        class:animate-bounce={next && !animating}
+        on:click={NextSlide}
+        ><img class="max-w-6" src="/right.png" alt="" /></button
       >
     </div>
     <button
+      class="bg-white bg-opacity-35"
       on:click={() => {
         if (groupPlayed && !animating) {
           GroupIdx = 1;

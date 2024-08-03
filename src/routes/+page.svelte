@@ -6,13 +6,25 @@
   let lang = -1;
   $: locations = [
     `AR`,
-    "https://publicworksstudio.com/en/how-to-protect-residents-of-the-neighborhoods-affected-by-the-beirut-port-explosion/",
-    "",
+    ["https://on4august.com/", "https://on4august.com/ar/"],
+    [
+      "https://publicworksstudio.com/en/homelessness-in-the-wake-of-the-disaster/",
+      "https://publicworksstudio.com/homelessness-in-the-wake-of-the-disaster/",
+    ],
   ];
-  const menuEN = ["AR experience", "legal agenda", "publicworks"];
-  const menuAR = ["تجربة الواقع الافتراضى", "legal agenda", "publicworks"];
+
+  const menuEN = [
+    "History of the Grain Silos (an AR experience)",
+    "Victims of the Blast",
+    "Homelessness in the Wake of the Disaster",
+  ];
+  const menuAR = [
+    'تاريخ الاهراءات (تجربة  الواقع المعزز "AR")',
+    "ضحايا الانفجار",
+    "التشرّد بعد الفاجعة",
+  ];
   const menu = [menuEN, menuAR];
-  let lano = "AR";
+  $: lano = "AR";
   async function Add(val: string) {
     lano = val;
     lib.addCookie("Lang", val, 30);
@@ -56,7 +68,10 @@
         {#if idx === 0}
           <a href={`${locations[idx]}/${lano}`}>{t}</a>
         {:else}
-          <a href={locations[idx]} target={idx > 0 ? "_blank" : "_self"}>{t}</a>
+          <a
+            href={locations[idx][lano === "AR" ? 1 : 0]}
+            target={idx > 0 ? "_blank" : "_self"}>{t}</a
+          >
         {/if}
       {/each}
     {/if}
