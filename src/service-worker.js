@@ -31,6 +31,7 @@ self.addEventListener("install", (event) => {
   }
   // console.log("service worker ", ASSETS);
   event.waitUntil(addFilesToCache());
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
@@ -42,6 +43,7 @@ self.addEventListener("activate", (event) => {
   }
 
   event.waitUntil(deleteOldCaches());
+  event.waitUntil(clients.claim());
 });
 
 self.addEventListener("fetch", (event) => {

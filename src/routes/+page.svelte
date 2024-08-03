@@ -48,7 +48,7 @@
           on:click={() => Add("AR")}
         >
           <!-- <img class=" h-10" src="/leb.png" alt="" /> -->
-          <p>العربيه</p>
+          <p dir={lano === "AR" ? "rtl" : "ltr"}>العربيه</p>
         </button>
         <!-- <p>العربيه</p> -->
       </div>
