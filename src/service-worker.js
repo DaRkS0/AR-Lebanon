@@ -2,7 +2,7 @@
 import { build, files, version } from "$service-worker";
 
 // Create a unique cache name for this deployment
-const CACHE = `cache-${version}`;
+const CACHE = `cache-3-8-${version}`;
 
 const ASSETS = [
   ...build, // the app itself
@@ -23,6 +23,7 @@ ASSETS.push(`${url}/AR/0.png`);
 ASSETS.push(`${url}/EN/0.png`);
 
 self.addEventListener("install", (event) => {
+  console.log({ version });
   // Create a new cache and add all files to it
   async function addFilesToCache() {
     const cache = await caches.open(CACHE);

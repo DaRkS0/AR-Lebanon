@@ -40,7 +40,7 @@
 </script>
 
 <div class="flex flex-col items-center justify-center h-full w-full">
-  <div class="flex h-fit gap-20">
+  <div class="flex h-fit gap-20 max-w-[90%]">
     {#if !showMenu}
       <div class="h-full flex flex-col items-center">
         <button
@@ -64,16 +64,18 @@
         <!-- <p>English</p> -->
       </div>
     {:else}
-      {#each menu[lang] as t, idx}
-        {#if idx === 0}
-          <a href={`${locations[idx]}/${lano}`}>{t}</a>
-        {:else}
-          <a
-            href={locations[idx][lano === "AR" ? 1 : 0]}
-            target={idx > 0 ? "_blank" : "_self"}>{t}</a
-          >
-        {/if}
-      {/each}
+      <div class="flex flex-col gap-6 text-center sm:!flex-row">
+        {#each menu[lang] as t, idx}
+          {#if idx === 0}
+            <a href={`${locations[idx]}/${lano}`}>{t}</a>
+          {:else}
+            <a
+              href={locations[idx][lano === "AR" ? 1 : 0]}
+              target={idx > 0 ? "_blank" : "_self"}>{t}</a
+            >
+          {/if}
+        {/each}
+      </div>
     {/if}
   </div>
 </div>
